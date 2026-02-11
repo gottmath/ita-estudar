@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITA Estudar — Preparação Vestibular ITA</title>
+    <meta name="description"
+        content="Plataforma completa de estudos para o vestibular do ITA com todos os temas, materiais e controle de progresso.">
+    <meta name="author" content="Matheus — @math.silvak">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <span class="logo-icon">✈</span>
+                <span class="logo-text">ITA <span class="logo-accent">Estudar</span></span>
+            </div>
+        </div>
+        <div class="header-center">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input"
+                    placeholder="Buscar temas, materiais, livros...">
+                <kbd class="search-shortcut">Ctrl+K</kbd>
+                <div id="searchResults" class="search-results hidden"></div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="progress-mini" id="progressMini">
+                <span class="progress-mini-label">Progresso Geral</span>
+                <div class="progress-mini-bar">
+                    <div class="progress-mini-fill" id="progressMiniFill"></div>
+                </div>
+                <span class="progress-mini-text" id="progressMiniText">0%</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <button class="sidebar-btn active" data-tab="dashboard">
+                    <span class="sidebar-icon">📊</span>
+                    <span class="sidebar-label">Dashboard</span>
+                </button>
+            </div>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-section">
+                <span class="sidebar-section-title">Matérias</span>
+                <button class="sidebar-btn" data-tab="matematica">
+                    <span class="sidebar-icon">📐</span>
+                    <span class="sidebar-label">Matemática</span>
+                    <span class="sidebar-badge" id="badge-matematica">0/17</span>
+                </button>
+                <button class="sidebar-btn" data-tab="fisica">
+                    <span class="sidebar-icon">⚡</span>
+                    <span class="sidebar-label">Física</span>
+                    <span class="sidebar-badge" id="badge-fisica">0/12</span>
+                </button>
+                <button class="sidebar-btn" data-tab="quimica">
+                    <span class="sidebar-icon">🧪</span>
+                    <span class="sidebar-label">Química</span>
+                    <span class="sidebar-badge" id="badge-quimica">0/12</span>
+                </button>
+                <button class="sidebar-btn" data-tab="portugues">
+                    <span class="sidebar-icon">📝</span>
+                    <span class="sidebar-label">Português</span>
+                    <span class="sidebar-badge" id="badge-portugues">0/6</span>
+                </button>
+                <button class="sidebar-btn" data-tab="ingles">
+                    <span class="sidebar-icon">🌐</span>
+                    <span class="sidebar-label">Inglês</span>
+                    <span class="sidebar-badge" id="badge-ingles">0/4</span>
+                </button>
+            </div>
+            <div class="sidebar-footer">
+                <div class="sidebar-credit">
+                    <span class="credit-icon">✦</span>
+                    <span class="credit-text">por <strong>Matheus</strong></span>
+                    <a href="https://instagram.com/math.silvak" target="_blank" class="credit-handle">@math.silvak</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Content Area -->
+        <main class="content" id="content">
+            <!-- Dashboard (default) -->
+            <div class="tab-content active" id="tab-dashboard">
+                <div class="dashboard">
+                    <div class="dashboard-header">
+                        <h1 class="dashboard-title">Bem-vindo ao <span class="gradient-text">ITA Estudar</span></h1>
+                        <p class="dashboard-subtitle">Organize seus estudos para o vestibular mais difícil do Brasil</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">📚</div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="statTotal">51</span>
+                                <span class="stat-label">Temas Totais</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green">✅</div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="statDone">0</span>
+                                <span class="stat-label">Concluídos</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon orange">🔥</div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="statPending">51</span>
+                                <span class="stat-label">Pendentes</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon purple">📈</div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="statPercent">0%</span>
+                                <span class="stat-label">Progresso</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress-section">
+                        <h2 class="section-title">Progresso por Matéria</h2>
+                        <div class="subject-progress-grid">
+                            <div class="subject-progress-card" data-subject="matematica">
+                                <div class="sp-header">
+                                    <span class="sp-icon">📐</span>
+                                    <span class="sp-name">Matemática</span>
+                                    <span class="sp-count" id="sp-matematica">0/17</span>
+                                </div>
+                                <div class="sp-bar">
+                                    <div class="sp-fill matematica" id="spfill-matematica"></div>
+                                </div>
+                            </div>
+                            <div class="subject-progress-card" data-subject="fisica">
+                                <div class="sp-header">
+                                    <span class="sp-icon">⚡</span>
+                                    <span class="sp-name">Física</span>
+                                    <span class="sp-count" id="sp-fisica">0/12</span>
+                                </div>
+                                <div class="sp-bar">
+                                    <div class="sp-fill fisica" id="spfill-fisica"></div>
+                                </div>
+                            </div>
+                            <div class="subject-progress-card" data-subject="quimica">
+                                <div class="sp-header">
+                                    <span class="sp-icon">🧪</span>
+                                    <span class="sp-name">Química</span>
+                                    <span class="sp-count" id="sp-quimica">0/12</span>
+                                </div>
+                                <div class="sp-bar">
+                                    <div class="sp-fill quimica" id="spfill-quimica"></div>
+                                </div>
+                            </div>
+                            <div class="subject-progress-card" data-subject="portugues">
+                                <div class="sp-header">
+                                    <span class="sp-icon">📝</span>
+                                    <span class="sp-name">Português</span>
+                                    <span class="sp-count" id="sp-portugues">0/6</span>
+                                </div>
+                                <div class="sp-bar">
+                                    <div class="sp-fill portugues" id="spfill-portugues"></div>
+                                </div>
+                            </div>
+                            <div class="subject-progress-card" data-subject="ingles">
+                                <div class="sp-header">
+                                    <span class="sp-icon">🌐</span>
+                                    <span class="sp-name">Inglês</span>
+                                    <span class="sp-count" id="sp-ingles">0/4</span>
+                                </div>
+                                <div class="sp-bar">
+                                    <div class="sp-fill ingles" id="spfill-ingles"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tips-section">
+                        <h2 class="section-title">📖 Livros Essenciais</h2>
+                        <div class="tips-grid">
+                            <div class="tip-card">
+                                <div class="tip-emoji">📐</div>
+                                <h3>Matemática</h3>
+                                <p>Fundamentos da Matemática Elementar (Iezzi) • Elementos da Matemática (Rufino) •
+                                    Noções de Matemática (Aref)</p>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-emoji">⚡</div>
+                                <h3>Física</h3>
+                                <p>Tópicos de Física (Helou) • Física Clássica • Fundamentos da Física (Ramalho) • Sears
+                                    & Zemansky</p>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-emoji">🧪</div>
+                                <h3>Química</h3>
+                                <p>Química Geral (Feltre) • Princípios de Química (Atkins) • Química Orgânica (Martha
+                                    Reis)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="credits-section">
+                        <div class="credits-card">
+                            <div class="credits-left">
+                                <span class="credits-logo">✈</span>
+                                <div class="credits-info">
+                                    <span class="credits-title">ITA Estudar</span>
+                                    <span class="credits-subtitle">Criado com 💙 por <strong>Matheus</strong></span>
+                                </div>
+                            </div>
+                            <div class="credits-right">
+                                <a href="https://instagram.com/math.silvak" target="_blank" class="credits-social">
+                                    <span class="credits-social-icon">📸</span>
+                                    <span>@math.silvak</span>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="credits-disclaimer">© 2026 Matheus (@math.silvak) — Todos os direitos reservados.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject tabs are rendered dynamically by JS -->
+            <div class="tab-content" id="tab-matematica"></div>
+            <div class="tab-content" id="tab-fisica"></div>
+            <div class="tab-content" id="tab-quimica"></div>
+            <div class="tab-content" id="tab-portugues"></div>
+            <div class="tab-content" id="tab-ingles"></div>
+        </main>
+    </div>
+
+    <!-- Topic Detail Modal -->
+    <div class="modal-overlay hidden" id="modalOverlay">
+        <div class="modal" id="topicModal">
+            <button class="modal-close" id="modalClose">✕</button>
+            <div class="modal-content" id="modalContent"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
